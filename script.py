@@ -176,7 +176,7 @@ if p_value < alpha:
 else:
     print("There is not enough evidence to conclude that the average GDP of Portugal in the sample sampleyears2 is statistically higher than the average GDP of Hungary in the sample sampleyears3.")
 
-#Pergunta 4.2 (3
+#Pergunta 4.2 (3 Alternativa 1
 
 # Selecionar apenas os anos da amostra para os países relevantes
 sample_years2_countries = ['United States', 'Russia', 'China', 'India', 'EU27']
@@ -194,6 +194,47 @@ compara_tukey = pairwise_tukeyhsd(endog=sample_years2_data['co2'], groups=sample
 
 print("\nComparison of means (Tukey HSD):")
 print(compara_tukey)
+
+
+#Alternativa 2 - Caixa de Bigodes
+
+data.dropna(inplace=True)
+
+sample_years2_countries = ['United States', 'Russia', 'China', 'India', 'EU27']
+sample_years2_data = data[(data['year'].isin(sampleyears2)) & (data['country'].isin(sample_years2_countries))]
+
+modelo_anova = ols('co2 ~ country', data=sample_years2_data).fit()
+anova_tabela = sm.stats.anova_lm(modelo_anova, typ=2)
+
+print("ANOVA Results:")
+print(anova_tabela)
+
+compara_tukey = pairwise_tukeyhsd(endog=sample_years2_data['co2'], groups=sample_years2_data['country'], alpha=0.05)
+
+print("\nTukey's HSD Test Results:")
+print(compara_tukey)
+
+plt.figure(figsize=(8, 6))
+sns.barplot(x=anova_tabela.index, y='PR(>F)', data=anova_tabela, palette='viridis')
+plt.title('ANOVA Results')
+plt.xlabel('Country')
+plt.ylabel('p-value')
+plt.xticks(rotation=45)
+plt.axhline(0.05, color='r', linestyle='--', label='Significance level (0.05)')
+plt.legend()
+plt.show()
+
+
+# Box plot for Tukey's HSD results
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='country', y='co2', data=sample_years2_data, palette='Set3')
+plt.title("CO2 Emissions by Country")
+plt.xlabel("Country")
+plt.ylabel("CO2 Emissions")
+plt.xticks(rotation=45)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.grid(True, axis='y')
+plt.show()
 
 #Pergunta 4.3 (1
 
