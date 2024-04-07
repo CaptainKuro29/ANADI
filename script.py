@@ -21,15 +21,15 @@ data_portugal = data[data['country'] == 'Portugal']
 
 plt.figure(figsize=(10, 6))
 plt.plot(data_portugal['year'], data_portugal['co2'])
-plt.title('Emissões Totais de CO2 para Portugal (1900-2021)')
-plt.xlabel('Ano')
-plt.ylabel('Emissões de CO2')
+plt.title('Total CO2 Emissions for Portugal (1900-2021)')
+plt.xlabel('Year')
+plt.ylabel('CO2 Emissions')
 plt.grid(True)
 plt.show()
 
 ano_max_co2 = data_portugal.loc[data_portugal['co2'].idxmax(), 'year']
 max_co2 = data_portugal['co2'].max()
-print(f"O ano com o máximo de emissões de CO2 para Portugal foi em {ano_max_co2} com {max_co2} milhões de toneladas.")
+print(f"The year with the maximum CO2 emissions for Portugal was in {ano_max_co2} with {max_co2} million tons.")
 
 #Pergunta 4.1 (2
 
@@ -38,13 +38,13 @@ fontes = ['cement_co2', 'coal_co2', 'flaring_co2', 'gas_co2', 'methane', 'nitrou
 
 # Adicionar Labels ao gráfico
 nomes_descritivos = {
-    'cement_co2': 'Cimento',
-    'coal_co2': 'Carvão',
-    'flaring_co2': 'Queima',
-    'gas_co2': 'Gás',
-    'methane': 'Metano',
-    'nitrous_oxide': 'Óxido Nitroso',
-    'oil_co2': 'Petróleo'
+    'cement_co2': 'Cement',
+    'coal_co2': 'Coal',
+    'flaring_co2': 'Flaring',
+    'gas_co2': 'Gas',
+    'methane': 'Methane',
+    'nitrous_oxide': 'Nitrous Oxide',
+    'oil_co2': 'Oil'
 }
 
 
@@ -54,9 +54,9 @@ plt.figure(figsize=(10, 6))
 for fonte in fontes:
     plt.plot(data_portugal['year'], data_portugal[fonte], label=nomes_descritivos[fonte])
 
-plt.title('Emissões de CO2 de Diferentes Fontes para Portugal (1900-2021)')
-plt.xlabel('Ano')
-plt.ylabel('Emissões de CO2')
+plt.title('CO2 Emissions from Different Sources for Portugal (1900-2021)')
+plt.xlabel('Year')
+plt.ylabel('CO2 Emissions')
 plt.legend()
 plt.grid(True)
 plt.show()
@@ -68,9 +68,9 @@ data_espanha = data[data['country'] == 'Spain']
 plt.figure(figsize=(10, 6))
 plt.plot(data_portugal['year'], data_portugal['co2'] / data_portugal['population'], label='Portugal')
 plt.plot(data_espanha['year'], data_espanha['co2'] / data_espanha['population'], label='Espanha')
-plt.title('Emissões de CO2 per Capita para Portugal e Espanha (1900-2021)')
-plt.xlabel('Ano')
-plt.ylabel('Emissões de CO2 per Capita')
+plt.title('CO2 Emissions per Capita for Portugal and Spain (1900-2021)')
+plt.xlabel('Year')
+plt.ylabel('CO2 Emissions per Capita')
 plt.legend()
 plt.grid(True)
 plt.show()
@@ -89,9 +89,9 @@ plt.figure(figsize=(10, 6))
 for pais in paises:
     data_pais = data_carvao[data_carvao['country'] == pais]
     plt.plot(data_pais['year'], data_pais['coal_co2'], label=pais)
-plt.title('Emissões de CO2 Originadas pelo Carvão (2000-2021)')
-plt.xlabel('Ano')
-plt.ylabel('Emissões de CO2')
+plt.title('CO2 Emissions Originating from Coal (2000-2021)')
+plt.xlabel('Year')
+plt.ylabel('CO2 Emissions')
 plt.legend()
 plt.grid(True)
 plt.show()
@@ -109,8 +109,8 @@ medias_formatadas = medias.round(3)
 
 # Criar a tabela
 tabela = medias_formatadas[['cement_co2', 'coal_co2', 'flaring_co2', 'gas_co2', 'methane', 'nitrous_oxide', 'oil_co2']]
-tabela.columns = ['Cimento', 'Carvão', 'Queima', 'Gás', 'Metano', 'Óxido Nitroso', 'Petróleo']
-tabela.index.name = 'Região'
+tabela.columns = ['Cement', 'Coal', 'Flaring', 'Gas', 'Methane', 'Nitrous Oxide', 'Oil']
+tabela.index.name = 'Region'
 
 # Mostrar a tabela
 print(tabela)
@@ -139,9 +139,9 @@ alpha = 0.05
 t_statistic, p_value = stats.ttest_ind(sample_years1_data_portugal['gdp'], sample_years1_data_hungary['gdp'], alternative='greater')
 
 if p_value < alpha:
-    print("Rejeitamos a hipótese nula. A média do PIB de Portugal na amostra é estatisticamente superior à média do PIB da Hungria na amostra.")
+    print("We reject the null hypothesis. The average GDP of Portugal in the sample is statistically higher than the average GDP of Hungary in the sample.")
 else:
-    print("Não rejeitamos a hipótese nula. Não há evidências suficientes para concluir que a média do PIB de Portugal na amostra é estatisticamente superior à média do PIB da Hungria na amostra.")
+    print("We do not reject the null hypothesis. There is not enough evidence to conclude that the average GDP of Portugal in the sample is statistically higher than the average GDP of Hungary in the sample.")
 
 #Pergunta 4.2 (2
 
@@ -172,9 +172,9 @@ alpha = 0.05
 t_statistic, p_value = stats.ttest_ind(sample_years2_data_portugal['gdp'], sample_years3_data_hungary['gdp'], alternative='greater')
 
 if p_value < alpha:
-    print("Rejeitamos a hipótese nula. A média do PIB de Portugal na amostra sampleyears2 é estatisticamente superior à média do PIB da Hungria na amostra sampleyears3.")
+    print("The average GDP of Portugal in the sample sampleyears2 is statistically higher than the average GDP of Hungary in the sample sampleyears3.")
 else:
-    print("Não rejeitamos a hipótese nula. Não há evidências suficientes para concluir que a média do PIB de Portugal na amostra sampleyears2 é estatisticamente superior à média do PIB da Hungria na amostra sampleyears3.")
+    print("There is not enough evidence to conclude that the average GDP of Portugal in the sample sampleyears2 is statistically higher than the average GDP of Hungary in the sample sampleyears3.")
 
 #Pergunta 4.2 (3
 
@@ -186,13 +186,13 @@ sample_years2_data = data[(data['year'].isin(sampleyears2)) & (data['country'].i
 modelo_anova = ols('co2 ~ country', data=sample_years2_data).fit()
 anova_tabela = sm.stats.anova_lm(modelo_anova, typ=2)
 
-print("Resultados da ANOVA:")
+print("ANOVA results:")
 print(anova_tabela)
 
 # Realizar o teste de Tukey para a análise post-hoc
 compara_tukey = pairwise_tukeyhsd(endog=sample_years2_data['co2'], groups=sample_years2_data['country'], alpha=0.05)
 
-print("\nComparação de médias (Tukey HSD):")
+print("\nComparison of means (Tukey HSD):")
 print(compara_tukey)
 
 #Pergunta 4.3 (1
@@ -208,11 +208,11 @@ data_carvao = data_carvao.pivot_table(index='year', columns='country', values='c
 tabela_correlacao = data_carvao.corr()
 
 # Mostrar a tabela de correlação
-print("Tabela de Correlação entre as Regiões:")
+print("Correlation Table between Regions:")
 print(tabela_correlacao)
 plt.figure(figsize=(8, 6)) 
 sns.heatmap(tabela_correlacao,annot=True,  cmap='coolwarm', fmt=".2f", linewidths=.5)
-plt.title('Matriz das Correlações CO2-Carvão (2000-2021)')
+plt.title('CO2-Coal Correlation Matrix (2000-2021)')
 plt.show()
 
 #Pergunta 4.3 (2 
@@ -240,8 +240,8 @@ plt.title('QQ')
 plt.show()  
 plt.scatter(model.fittedvalues, residuos, alpha=0.5) 
 plt.xlabel('Values') 
-plt.ylabel('Residuos') 
-plt.title('Homoscedasticidade')
+plt.ylabel('Residuals') 
+plt.title('Homoscedasticity')
 plt.axhline(y=0, color='r', linestyle='--') 
 plt.show() 
 durbinWatson = durbin_watson(residuos)
@@ -256,7 +256,7 @@ vif_series = pd.Series([variance_inflation_factor(vif_data.values, i)
                         index=vif_data.columns)
 
 # Exibir os resultados
-print("Fator de Inflação da Variância (VIF):\n", vif_series)
+print("Variance Inflation Factor (VIF):\n", vif_series)
 
 #d) 
 # Os países têm VIFs moderados , o que significa que elas estão correlacionadas entre si, mas não de forma excessiva.
@@ -286,7 +286,7 @@ model = sm.OLS(Y_2015, X_2015_const).fit()
 Y_pred_2015 = model.predict(X_2015_const)
 
 # Comparar com o valor real
-print("\nEstimativa da Emissão de CO2 proveniente do carvão na Europa em 2015:")
+print("\nEstimate of CO2 Emissions from coal in Europe in 2015:")
 print(Y_pred_2015)
-print("\nValor Real da Emissão de CO2 proveniente do carvão na Europa em 2015:")
+print("\nActual Value of CO2 Emissions from coal in Europe in 2015:")
 print(Y_2015)
